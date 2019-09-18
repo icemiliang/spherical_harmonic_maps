@@ -2,7 +2,7 @@
 
 This package includes the prototype code for implementing least squares conformal maps.
 
-![alt text](data/brain.png?raw=true "Spherical harmonic map")
+![alt text](data/brain.jpg?raw=true "Spherical harmonic map")
 
 ## Build
 
