@@ -1,6 +1,6 @@
 # Spherical Harmonic Map
 
-This package includes the prototype code for implementing least squares conformal maps.
+This package includes the prototype code for implementing spherical harmonic maps.
 
 ![alt text](data/brain.jpg?raw=true "Spherical harmonic map")
 
