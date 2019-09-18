@@ -1,11 +1,12 @@
-# SHM
-## Spherical Harmonic Map
+# Spherical Harmonic Map
 
 This package includes the prototype code for implementing least squares conformal maps.
 
-![alt text](data/brain.jpg?raw=true "Spherical harmonic map")
+![alt text](data/brain.png?raw=true "Spherical harmonic map")
 
 ## Build
+
+[![Build status](https://ci.appveyor.com/api/projects/status/6nyv0sobm4k0ey2j?svg=true)](https://ci.appveyor.com/project/icemiliang/spherical-harmonic)
 
 
 In the root directory, run:
