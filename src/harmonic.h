@@ -12,24 +12,20 @@
 
 using namespace MeshLib;
 
+class Harmonic {
+public:
+	void star_map(Solid *cmesh);
+	void harmonic_map_conjugate_gd(Solid * pnmesh);
+	void harmonic_map_gd(Solid * pnmesh);
+	void tuette_map(Solid * pnmesh);
+	void set_up(Solid * nmesh);	
+protected:
+	void set_up_normal(Solid *nmesh);
+	void set_up_kuv(Solid *nmesh);
 
-void star_map(Solid *cmesh);
-
-double compute_energy(Solid *cmesh, int type);
-
-void compute_gradient(Solid *cmesh, int type);
-
-void conjugate_gradient(Solid *cmesh);
-
-void update_mesh(Solid *cmesh);
-void update_mass_center(Solid * cmesh);
-
-void harmonic_map_conjugate_gd(Solid * pnmesh);
-
-void harmonic_map_gd(Solid * pnmesh);
-void tuette_map(Solid * pnmesh);
-void set_up_normal(Solid *nmesh);
-
-void set_up_kuv(Solid *nmesh);
-
-void set_up(Solid * nmesh);
+	double compute_energy(Solid *cmesh, int type);
+	void compute_gradient(Solid *cmesh, int type);
+	void conjugate_gradient(Solid *cmesh);
+	void update_mesh(Solid *cmesh);
+	void update_mass_center(Solid * cmesh);
+};

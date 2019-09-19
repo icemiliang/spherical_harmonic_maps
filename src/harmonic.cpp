@@ -1,7 +1,8 @@
 #include "harmonic.h"
 
 
-void star_map(Solid *cmesh) {
+
+void Harmonic::star_map(Solid *cmesh) {
 	Point center(0, 0, 0);
 	for (SolidVertexIterator viter(cmesh); !viter.end(); ++viter) {
 		Solid::tVertex vertex = *viter;
@@ -16,7 +17,7 @@ void star_map(Solid *cmesh) {
 	}
 }
 
-double compute_energy(Solid *cmesh, int type) {
+double Harmonic::compute_energy(Solid *cmesh, int type) {
 	double energy = 0;
 	for (SolidEdgeIterator eiter(cmesh); !eiter.end(); ++eiter) {
 		Solid::tEdge edge = *eiter;
@@ -31,7 +32,7 @@ double compute_energy(Solid *cmesh, int type) {
 	return energy;
 }
 
-void compute_gradient(Solid *cmesh, int type) {
+void Harmonic::compute_gradient(Solid *cmesh, int type) {
 	for (SolidVertexIterator viter(cmesh); !viter.end(); ++viter) {
 		Solid::tVertex sv = *viter;
 		Point gradient = Point(0, 0, 0);
@@ -46,7 +47,7 @@ void compute_gradient(Solid *cmesh, int type) {
 	}
 }
 
-void conjugate_gradient(Solid *cmesh) {
+void Harmonic::conjugate_gradient(Solid *cmesh) {
 	for (SolidVertexIterator viter(cmesh); !viter.end(); ++viter) {
 		Solid::tVertex vertex = *viter;
 		v_beta(vertex) = v_abdv(vertex)*v_abdv(vertex) / (v_fabdv(vertex)*v_fabdv(vertex));
@@ -79,7 +80,7 @@ void conjugate_gradient(Solid *cmesh) {
 	}
 }
 
-void update_mesh(Solid *cmesh) {
+void Harmonic::update_mesh(Solid *cmesh) {
 	for (SolidVertexIterator viter(cmesh); !viter.end(); ++viter) {
 		Solid::tVertex v = *viter;
 		v->point() = v->point()- v_abdv(v)*DELTA_T;
@@ -87,7 +88,7 @@ void update_mesh(Solid *cmesh) {
 	}
 }
 
-void update_mass_center(Solid * cmesh) {
+void Harmonic::update_mass_center(Solid * cmesh) {
 	for (SolidFaceIterator fiter(cmesh); !fiter.end(); ++fiter) {
 		Solid::tFace face = *fiter;
 
@@ -127,7 +128,7 @@ void update_mass_center(Solid * cmesh) {
 	}
 }
 
-void harmonic_map_conjugate_gd(Solid * pnmesh) {
+void Harmonic::harmonic_map_conjugate_gd(Solid * pnmesh) {
 	double te = compute_energy(pnmesh, HARMONIC);
 	double oe = 1000;
 	compute_gradient(pnmesh, HARMONIC);
@@ -150,7 +151,7 @@ void harmonic_map_conjugate_gd(Solid * pnmesh) {
 	}
 }
 
-void harmonic_map_gd(Solid * pnmesh) {
+void Harmonic::harmonic_map_gd(Solid * pnmesh) {
 	double he = compute_energy(pnmesh, HARMONIC);
 	double oe = 1000;
 	int i = 0;
@@ -166,7 +167,7 @@ void harmonic_map_gd(Solid * pnmesh) {
 	}
 }
 
-void tuette_map(Solid * pnmesh) {
+void Harmonic::tuette_map(Solid * pnmesh) {
 	double te = compute_energy(pnmesh, TUETTE);
 	double oe = 1000;
 	int i = 0;
@@ -181,7 +182,7 @@ void tuette_map(Solid * pnmesh) {
 	}
 }
 
-void set_up_normal(Solid *nmesh) {
+void Harmonic::set_up_normal(Solid *nmesh) {
 	for (SolidVertexIterator viter(nmesh); !viter.end(); ++viter) {
 		Solid::tVertex vertex = *viter;
 		vertex->trait() = new CVertexTrait;
@@ -200,7 +201,7 @@ void set_up_normal(Solid *nmesh) {
 	}
 }
 
-void set_up_kuv(Solid *nmesh) {
+void Harmonic::set_up_kuv(Solid *nmesh) {
 	for (SolidEdgeIterator eiter(nmesh); !eiter.end(); ++eiter) {
 		Solid::tEdge edge = *eiter;
 		edge->trait() = new CEdgeTrait;
@@ -223,7 +224,7 @@ void set_up_kuv(Solid *nmesh) {
 	}
 }
 
-void set_up(Solid * nmesh) {
+void Harmonic::set_up(Solid * nmesh) {
 	set_up_normal(nmesh);
 	set_up_kuv(nmesh);
 }
