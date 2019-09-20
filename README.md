@@ -2,6 +2,8 @@
 
 This package includes the prototype code for implementing spherical harmonic maps.
 
+Harmonic maps between genus-0 surfaces are conformal. Thus, this code can be used for computing conformal maps from any genus-0 surface to a unit sphere.
+
 ![alt text](data/brain.jpg?raw=true "Spherical harmonic map")
 
 ## Build
@@ -26,7 +28,7 @@ The program has been tested on Ubuntu 16.04 with g++ 5.4.0.
 
 The output is three files: star.obj tuette.obj and harmonic.obj. star is the initial map that projects all vertices onto the unit sphere. Tuette map is an intermidiate step. Harmonic map is the final result.
 
-## References
+## Reference
 Gu, Xianfeng David. Computational conformal geometry. Edited by Shing-Tung Yau. Somerville, Mass, USA: International Press, 2008.
 
 ## Contact
