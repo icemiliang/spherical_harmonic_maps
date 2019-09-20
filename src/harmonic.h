@@ -3,6 +3,7 @@
 #include <math.h>
 #include "Point.h"
 #include "CTrait.h"
+#include <vector>
 
 #define DELTA_T 1e-2
 #define DELTA_E 1e-5
@@ -12,24 +13,26 @@
 
 using namespace MeshLib;
 
+class Harmonic {
 
-void star_map(Solid *cmesh);
+public:
+	Harmonic(Solid *cmesh) {
+		_nmesh = cmesh;
+	};
+	void star_map();
+	void harmonic_map_conjugate_gd();
+	void harmonic_map_gd();
+	void tuette_map();
+	void set_up();
+	std::vector<double> compute_vertex_angles();
+protected:
+	void set_up_normal();
+	void set_up_kuv();
+	double compute_energy(int type);
+	void compute_gradient(int type);
+	void conjugate_gradient();
+	void update_mesh();
+	void update_mass_center();
 
-double compute_energy(Solid *cmesh, int type);
-
-void compute_gradient(Solid *cmesh, int type);
-
-void conjugate_gradient(Solid *cmesh);
-
-void update_mesh(Solid *cmesh);
-void update_mass_center(Solid * cmesh);
-
-void harmonic_map_conjugate_gd(Solid * pnmesh);
-
-void harmonic_map_gd(Solid * pnmesh);
-void tuette_map(Solid * pnmesh);
-void set_up_normal(Solid *nmesh);
-
-void set_up_kuv(Solid *nmesh);
-
-void set_up(Solid * nmesh);
+	Solid * _nmesh;
+};
