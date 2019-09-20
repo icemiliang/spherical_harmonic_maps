@@ -160,7 +160,7 @@ void Harmonic::harmonic_map_gd() {
 		update_mass_center();
 		oe = he;
 		he = compute_energy(HARMONIC);
-		if (i++ < 10 or i % 100 == 0) {
+		if (i++ < 10 or (i < 500 and i % 100 == 0) or i % 1000 == 0) {
 			std::cout << i << ", energy: " << he << ", diff: "<< oe - he << std::endl;	
 		}
 	}
@@ -175,7 +175,7 @@ void Harmonic::tuette_map() {
 		update_mesh();
 		oe = te;
 		te = compute_energy(TUETTE);
-		if (i++ < 10 or i % 100 == 0) {
+		if (i++ < 10 or (i < 500 and i % 100 == 0) or i % 1000 == 0) {
 			std::cout << i << ", energy: " << te << ", diff: "<< oe - te << std::endl;	
 		}
 	}
@@ -224,32 +224,12 @@ void Harmonic::set_up_kuv() {
 }
 
 void Harmonic::set_up() {
-	// store_angles();
 	set_up_normal();
 	set_up_kuv();
 }
 
-void Harmonic::store_angles() {
-	for (SolidFaceIterator fiter(_nmesh); !fiter.end(); ++fiter) {
-		Solid::tFace f = *fiter;
-		Point p[3];
-		int i = 0;
-		for (FaceVertexIterator fviter(f); !fviter.end(); ++fviter) {
-			Vertex * v = *fviter;
-			p[i++] = v->point();
-		}
-		Point p1 = p[0] - p[1];
-		Point p2 = p[1] - p[2];
-		Point p3 = p[2] - p[0];
-		_angles.push_back(p1 * (-p3) / (p1.norm() * (-p3).norm()));
-		_angles.push_back((-p1) * p2 / ((-p1).norm() * p2.norm()));
-		_angles.push_back(p3 * (-p2) / (p3.norm() * (-p2).norm()));
-	}
-}
-
-std::vector<double> Harmonic::check_conformality() {
-	std::vector<double> errors;
-	int k = 0;
+std::vector<double> Harmonic::compute_vertex_angles() {
+	std::vector<double> angles;
 	for (SolidFaceIterator fiter(_nmesh); !fiter.end(); ++fiter) {
 		Solid::tFace f = *fiter;
 		Point p[3];
@@ -262,9 +242,9 @@ std::vector<double> Harmonic::check_conformality() {
 		Point p2 = p[1] - p[2];
 		Point p3 = p[2] - p[0];
 
-		errors.push_back(fabs(p1 * (-p3) / (p1.norm() * (-p3).norm()) - _angles[k++]));
-		errors.push_back(fabs((-p1) * p2 / ((-p1).norm() * p2.norm()) - _angles[k++]));
-		errors.push_back(fabs(p3 * (-p2) / (p3.norm() * (-p2).norm()) - _angles[k++]));
+		angles.push_back(acos(p1 * (-p3) / (p1.norm() * (-p3).norm())));
+		angles.push_back(acos((-p1) * p2 / ((-p1).norm() * p2.norm())));
+		angles.push_back(acos(p3 * (-p2) / (p3.norm() * (-p2).norm())));
 	}
-	return errors;
+	return angles;
 }
