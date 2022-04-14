@@ -1,4 +1,5 @@
 #include <fstream>
+#include <numeric>
 #include "OBJFileReader.h"
 #include "Solid.h"
 #include "harmonic.h"
